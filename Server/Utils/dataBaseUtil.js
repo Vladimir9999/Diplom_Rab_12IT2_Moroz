@@ -15,7 +15,13 @@ export function createUser(data) {
     const user = new Users({
         firstName: data.firstName,
         secondName: data.secondName,
-        age: data.age || 0
+        middleName: data.middleName,
+        birthdate: data.birthdate || new Date(),
+        age: data.age || 0,
+        id_driver: data.id_driver || '',
+        login: data.login,
+        pass: data.pass,
+        phone_num: data.phone_num
     });
     return user.save();
 }
