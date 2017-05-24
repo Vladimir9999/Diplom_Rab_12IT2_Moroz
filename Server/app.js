@@ -19,10 +19,9 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     console.log('USER_REQ:', req.body);
     db.createUser(req.body).then( data => {
-        console.log(data);
-        res.send(data);
+        res.send({res: true, text: 'Регистрация прошла успешно'});
     }).catch( () => {
-        res.send('При добавлении возникла ошибка');
+        res.send({res: false, text:'При регистрации возникла ошибка'});
     });
 });
 
