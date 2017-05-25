@@ -11,6 +11,10 @@ export function listUsers() {
     return Users.find();
 }
 
+export function userAuth(data) {
+    return Users.findOne({login: data.login});
+}
+
 export function createUser(data) {
     const user = new Users({
         firstName: data.firstName,
@@ -24,6 +28,7 @@ export function createUser(data) {
         phone_num: data.phone_num
     });
     return user.save();
+
 }
 
 export function deleteUser(id) {

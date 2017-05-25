@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import * as db from './Utils/dataBaseUtil.js';
+import * as db from './Utils/UsersUtil.js';
 
 db.setUpConnection();
 const app = express();
@@ -9,27 +9,40 @@ app.use( bodyParser.json() );
 
 app.get('/users', (req, res) => {
     db.listUsers().then( data => {
-       console.log('data: ', data) ;
        res.send(data);
     }).catch( () => {
-            res.send('Список пуст');
+        res.send('Список пуст');
+    });
+});
+
+app.post('/users/auth', (req, res) => {
+    console.log('REQ_BODY ', req.body);
+    db.userAuth(req.body).then( data => {
+        console.log('DATA ', data);
+        if (data && data.pass === req.body.pass) {
+            res.send(data);
+        } else {
+            throw(new Error('Логин или пароль введен неверно'))
+        }
+    }).catch( (error) => {
+        res.status(401).send({message: error.message});
     });
 });
 
 app.post('/users', (req, res) => {
-    console.log('USER_REQ:', req.body);
     db.createUser(req.body).then( data => {
-        res.send({res: true, text: 'Регистрация прошла успешно'});
-    }).catch( () => {
-        res.send({res: false, text:'При регистрации возникла ошибка'});
+        res.send(data);
+    }).catch( (error) => {
+        res.send(new Error(error.message));
     });
 });
 
 app.delete('/users/:id', (req, res) => {
-    db.deleteUser(req.body).then(data => {
+    db.deleteUser(req.params.id).then(data => {
         res.send(data);
-    }).catch(
+    }).catch( () => {
         res.send('При удалении возникла ошибка')
+    }
     );
 });
 
