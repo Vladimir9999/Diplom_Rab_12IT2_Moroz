@@ -32,6 +32,10 @@ export function createUser(data) {
 
 }
 
+export function findUserByLogin(login) {
+    return Users.findOne({login: login});
+}
+
 export function deleteUser(id) {
     return Users.findById(id).remove();
     //return Users.remove({});

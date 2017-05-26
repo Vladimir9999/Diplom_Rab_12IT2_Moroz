@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import InputElement from 'react-input-mask';
 import md5 from 'md5';
+import MessageBox from '../MessageBox';
 import '../../../stylesheets/Auth.scss'
 
 class RegUser extends Component {
@@ -12,7 +13,9 @@ class RegUser extends Component {
       isSend: false,
       errorPass: null,
       errorPhoneNum: null,
-      errorMessage: null
+      errorMessage: null,
+      errorLogin: null,
+      showMessageBox: false
     };
   }
   changeField = () => {
@@ -53,6 +56,10 @@ class RegUser extends Component {
   addUser = () => {
     const pass = md5(this.pass1.value),
           { firstName, secondName, middleName , phoneNum, login } = this;
+    this.setState({
+      errorMessage: null,
+      errorLogin: null
+    });
     if (this.state.isSend) {
       fetch(this.state.url, {
         method: 'POST',
@@ -69,17 +76,21 @@ class RegUser extends Component {
           phone_num: phoneNum.value
         })
       })
+        .then(res => {
+          this.setState({status: res.status});
+          return res;
+        })
         .then( res => res.json())
         .then( res =>{
-          if (res.res) {
-            browserHistory.push('/');
-          } else {
-            throw(new Error(res.text));
+          if (this.state.status === 400) {
+            throw(res);
+          } else
+            this.setState({showMessageBox: true});
           }
-      }).catch( error =>{
-        debugger
-        // TODO добавить вывод ошибок, выделить поля в которых ошибки
-      });
+
+        ).catch( error =>{
+          this.setState({errorLogin: error.message})
+        });
     } else {
       this.setState({
         isSend: false,
@@ -90,17 +101,21 @@ class RegUser extends Component {
   };
 
   render() {
-    const { errorPass, errorPhoneNum, errorMessage } = this.state,
+    const { errorPass, errorPhoneNum, errorMessage, errorLogin, showMessageBox } = this.state,
       passClass = errorPass ? 'inValidInput' : '',
-      phoneNumClass = errorPhoneNum ? 'inValidInput' : '';
+      phoneNumClass = errorPhoneNum ? 'inValidInput' : '',
+      loginClass = errorLogin ? 'inValidInput' : '';
     return (
       <div className = "authForm">
+        {showMessageBox && <MessageBox text="Клиент успешно зарегистрирован" url="/"/>}
         <form>
           <fieldset>
             <legend><span className="number">1</span> Введите данные для аутентификации</legend>
             {errorMessage && <span className="errorLabel">{errorMessage}</span>}
+            {errorLogin && <span className="errorLabel">{errorLogin}</span>}
             <input type="text"
                    name="field1"
+                   className= {loginClass}
                    ref={(input) => this.login = input}
                    placeholder="Логин *"
                    onChange={this.changeField.bind(this)}
@@ -142,7 +157,7 @@ class RegUser extends Component {
             {errorPhoneNum && <span className="errorLabel">{errorPhoneNum}</span>}
             <InputElement type="text"
                           name="field7"
-                          mask="+375\ 99 999 99 99"
+                          mask="+375\ 99 999 99 99\"
                           maskChar=""
                           className= {phoneNumClass}
                           ref={(input) => this.phoneNum = input}

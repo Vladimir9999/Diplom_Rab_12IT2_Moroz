@@ -1,0 +1,21 @@
+
+.msgBoxContainer {
+  -webkit-box-shadow: 0 0 10px 0 rgba(50, 50, 50, 1);
+  -moz-box-shadow:    0 0 10px 0 rgba(50, 50, 50, 1);
+  box-shadow: 0 0 10px 0 rgba(50, 50, 50, 1);
+  position: fixed;
+  top: 30%;
+  left: 40%;
+  height: 140px;
+  width: 400px;
+  border-radius: 4px;
+  border: 1px solid #16a085;
+  background-color: #1abc9c;
+  opacity: 0.8;
+  padding: 50px 45px;
+  word-wrap: break-word;
+}
+.msgBoxContainer span {
+  font-size: 17px;
+  color: white;
+}

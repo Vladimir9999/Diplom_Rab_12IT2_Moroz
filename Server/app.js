@@ -30,10 +30,18 @@ app.post('/users/auth', (req, res) => {
 });
 
 app.post('/users', (req, res) => {
-    db.createUser(req.body).then( data => {
-        res.send(data);
+    db.findUserByLogin(req.body.login)
+    .then( data => {
+        if (data) {
+            throw(new Error('Этот логин уже используется'))
+        } else {
+            return db.createUser(req.body);
+        }
+    })
+    .then( data => {
+        res.send({message: 'Пользователь успешно зарегистрирован' });
     }).catch( (error) => {
-        res.send(new Error(error.message));
+        res.status(400).send({message: error.message});
     });
 });
 
