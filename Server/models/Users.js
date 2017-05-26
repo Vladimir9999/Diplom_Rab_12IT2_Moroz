@@ -11,7 +11,8 @@ const UserSchema = new Schema({
     id_driver: {type: String},
     login: {type: String, required: true},
     pass: {type: String, required: true},
-    phone_num: {type: String, required: true}
+    phone_num: {type: String, required: true},
+    status: {type: String} // Admin, worker, user
 });
 
 const Users = mongoose.model('Users', UserSchema);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 import md5 from 'md5';
@@ -39,6 +39,7 @@ class Auth extends Component {
           if (this.state.status === 401) {
             throw(res);
           }
+          browserHistory.push('/home');
           // TODO записать юзера в стор
         }).catch( res => {
           this.setState({errorMessage: res.message});

@@ -7,6 +7,7 @@ import rootReducer from './rootReducer';
 
 import '../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js';
 import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+import '../stylesheets/Main.scss'
 
 const store = createStore(rootReducer);
 

@@ -25,7 +25,8 @@ export function createUser(data) {
         id_driver: data.id_driver || '',
         login: data.login,
         pass: data.pass,
-        phone_num: data.phone_num
+        phone_num: data.phone_num,
+        status: data.status || 'user'
     });
     return user.save();
 
