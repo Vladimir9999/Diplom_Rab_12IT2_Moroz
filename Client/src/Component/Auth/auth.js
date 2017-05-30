@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import actions from '../../actions';
+import { bindActionCreators } from 'redux';
+import usersActions from '../../actions';
 import md5 from 'md5';
 import '../../../stylesheets/Auth.scss'
 
@@ -40,7 +41,7 @@ class Auth extends Component {
             throw(res);
           }
           browserHistory.push('/home');
-          // TODO записать юзера в стор
+          this.props.usersActions.addCurrentUser(res);
         }).catch( res => {
           this.setState({errorMessage: res.message});
         });
@@ -90,4 +91,10 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    usersActions: bindActionCreators(usersActions, dispatch)
+  }
+};
+
+export default connect (mapDispatchToProps)(Auth);
