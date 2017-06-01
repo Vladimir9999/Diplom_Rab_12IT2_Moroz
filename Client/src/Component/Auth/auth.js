@@ -14,7 +14,8 @@ class Auth extends Component {
       errorMessage: null,
       errorLogin: null,
       errorPass: null
-    }
+    };
+    this.props.usersActions.addCurrentUser(null);
   };
   onEnter = () => {
     const {login, pass} = this;
@@ -40,8 +41,8 @@ class Auth extends Component {
           if (this.state.status === 401) {
             throw(res);
           }
-          browserHistory.push('/home');
           this.props.usersActions.addCurrentUser(res);
+          browserHistory.push('/home');
         }).catch( res => {
           this.setState({errorMessage: res.message});
         });
@@ -91,10 +92,11 @@ class Auth extends Component {
   }
 }
 
+
 const mapDispatchToProps = (dispatch) => {
   return {
     usersActions: bindActionCreators(usersActions, dispatch)
   }
 };
 
-export default connect (mapDispatchToProps)(Auth);
+export default connect (() => {}, mapDispatchToProps)(Auth);

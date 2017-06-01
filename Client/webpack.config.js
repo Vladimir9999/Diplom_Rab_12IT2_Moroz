@@ -56,7 +56,7 @@ module.exports = {
       use: ['url-loader?limit=100000']
     }, {
       test: /\.jpg$/,
-      use: ["file-loader"]
+      use: ['url-loader?limit=100000']
     }, {
       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
       use: ['url-loader?limit=10000&mimetype=application/font-woff']
