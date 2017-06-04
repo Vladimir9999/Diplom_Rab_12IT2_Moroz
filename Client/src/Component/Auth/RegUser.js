@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import InputElement from 'react-input-mask';
 import md5 from 'md5';
 import MessageBox from '../MessageBox';
-import '../../../stylesheets/Auth.scss'
+import '../../../stylesheets/Form.scss'
 
 class RegUser extends Component {
   constructor(props) {

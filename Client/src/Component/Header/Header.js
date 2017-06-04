@@ -18,7 +18,7 @@ class Header extends Component {
     }
     return (
       <div>
-        {defaultMenu && <div className='defHeader'>default</div>}
+        {defaultMenu && <div className='defHeader'></div>}
         {!defaultMenu &&
           <div className='Header'>
             <Logo />

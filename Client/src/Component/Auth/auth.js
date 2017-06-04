@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import usersActions from '../../actions';
 import md5 from 'md5';
-import '../../../stylesheets/Auth.scss'
+import '../../../stylesheets/Form.scss'
 
 class Auth extends Component {
   constructor(props) {
@@ -99,4 +99,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect (() => {}, mapDispatchToProps)(Auth);
+export default connect (() => ({}), mapDispatchToProps)(Auth);
