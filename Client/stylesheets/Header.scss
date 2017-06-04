@@ -1,3 +1,12 @@
+li {
+  list-style-type: none;
+  cursor: pointer;
+  font-family: 'Franklin Gothic Medium', 'Comic Sans MS', Arial;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 .defHeader {
   padding: 15px;
   height: 60px;
@@ -49,10 +58,37 @@
     color: #16a085;
   }
 }
-
+.DashboardCnt {
+  width: 150px;
+  margin-left: 1000px;
+}
 .Dashboard {
   @extend .home_container;
+
 }
+.MenuList {
+  background-color: #fff;
+  padding: 0;
+  width: 100%;
+  display: block;
+  li {
+    color: #16a085;
+    font-size: 17px;
+    display: block;
+    padding: 10px 5px 0 0;
+    width: 100%;
+    text-align: right;
+    height: 45px;
+    &:hover {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+  &-hide {
+    display: none;
+  }
+}
+
 .home_icon {
   height: 40px;
   width: 40px;
@@ -74,3 +110,5 @@
   width: 40px;
   background-image: url('../img/worker.jpg');
 }
+
+

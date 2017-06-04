@@ -7,12 +7,16 @@ import Logo from './Logo';
 import '../../../stylesheets/Header.scss'
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    if (localStorage.getItem('currentUser')) {
+      this.props.usersActions.addCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
+    }
+
+  }
   render() {
     const { currentUser } = this.props;
-    let defaultMenu = true,
-        isAdmin = false,
-        isUser = false,
-        isWorker = false;
+    let defaultMenu = true;
     if (currentUser) {
       defaultMenu = false;
     }
@@ -25,7 +29,6 @@ class Header extends Component {
             <Dashboard currentUser={currentUser} />
           </div>
         }
-
       </div>
 
     );

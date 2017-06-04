@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
-import { connect } from 'react-redux';
+import {  connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import usersActions from '../../actions';
+import { Link, browserHistory } from 'react-router';
 import md5 from 'md5';
 import '../../../stylesheets/Form.scss'
 
@@ -15,7 +15,14 @@ class Auth extends Component {
       errorLogin: null,
       errorPass: null
     };
-    this.props.usersActions.addCurrentUser(null);
+
+  };
+  componentWillMount()  {
+    if (localStorage.getItem('currentUser')) {
+      browserHistory.push('/home');
+    } else {
+      this.props.usersActions.addCurrentUser(null);
+    }
   };
   onEnter = () => {
     const {login, pass} = this;
@@ -42,6 +49,7 @@ class Auth extends Component {
             throw(res);
           }
           this.props.usersActions.addCurrentUser(res);
+          localStorage.setItem('currentUser', JSON.stringify(res));
           browserHistory.push('/home');
         }).catch( res => {
           this.setState({errorMessage: res.message});
