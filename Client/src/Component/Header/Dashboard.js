@@ -22,7 +22,6 @@ class Dashboard extends Component {
     let { status, login } = this.props.currentUser,
       iconName = (status || 'user') + '_icon';
     const listClassName = this.state.isShowList ? 'MenuList' : 'MenuList-hide';
-
     return (
       <div className="DashboardCnt"
            onMouseEnter={this.switchShowList}
@@ -30,9 +29,9 @@ class Dashboard extends Component {
       >
         <div className="Dashboard">
           <h2 className="logo">{login}</h2>
-          <img className={iconName} />
+          <div className={iconName} />
         </div>
-        <Menu_list listClassName={listClassName} />
+        <Menu_list listClassName={listClassName} status={status} />
 
       </div>
     );

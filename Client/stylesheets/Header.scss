@@ -72,17 +72,22 @@ li {
   width: 100%;
   display: block;
   li {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
     color: #16a085;
     font-size: 17px;
-    display: block;
-    padding: 10px 5px 0 0;
+    padding: 0 5px 0 10px;
     width: 100%;
-    text-align: right;
     height: 45px;
     &:hover {
       background-color: #000;
       color: #fff;
     }
+  }
+  div {
+    margin-top: 10px;
   }
   &-hide {
     display: none;
@@ -109,6 +114,23 @@ li {
   height: 40px;
   width: 40px;
   background-image: url('../img/worker.jpg');
+}
+.exit_icon {
+  display: inline-block;
+  height: 32px;
+  margin-left: 5px;
+  width: 32px;
+  background: no-repeat;
+  background-image: url('../img/exit.png') ;
+}
+
+.mail_icon {
+  display: inline-block;
+  height: 32px;
+  margin-left: 5px;
+  width: 32px;
+  background: no-repeat;
+  background-image: url('../img/mail.png') ;
 }
 
 
