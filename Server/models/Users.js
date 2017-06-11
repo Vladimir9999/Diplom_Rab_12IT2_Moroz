@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
-
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema,
+     { ObjectId } = Schema;
 
 const UserSchema = new Schema({
     firstName: { type: String, required: true}, //type String, Number, Date, Buffer, Boolean
     secondName: { type: String, required: true},
     middleName: { type: String, required: true}, // Отчество
-    birthdate: {type: Date, required: true},
-    age: {type: Number},
-    id_driver: {type: String},
+    birthDate: {type: Date, required: true},
     login: {type: String, required: true},
     pass: {type: String, required: true},
-    phone_num: {type: String, required: true},
-    status: {type: String} // Admin, worker, user
+    phoneNum: {type: String, required: true},
+    level: {type: Number, required: true},
+    id_worker: {type: ObjectId, required: false, ref: 'Workers'},
+    id_driver: {type: ObjectId, required: false, ref: 'Drivers'}
 });
 
 const Users = mongoose.model('Users', UserSchema);

@@ -4,29 +4,26 @@ import '../models/Users';
 const Users = mongoose.model('Users');
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://localhost/users`);
+    mongoose.connect(`mongodb://localhost/gai`);
 }
 
 export function listUsers() {
     return Users.find();
 }
 
-export function userAuth(data) {
-    return Users.findOne({login: data.login});
-}
-
 export function createUser(data) {
+    console.log('createUser ', data);
     const user = new Users({
         firstName: data.firstName,
         secondName: data.secondName,
         middleName: data.middleName,
-        birthdate: data.birthdate || new Date(),
-        age: data.age || 0,
-        id_driver: data.id_driver || '',
+        birthDate: data.birthDate || new Date(),
+        id_worker: data.level > 0 ? data.id_status : null,
+        id_drivers: data.level === 0 ? data.id_status : null,
         login: data.login,
+        level: data.level,
         pass: data.pass,
-        phone_num: data.phone_num,
-        status: data.status || 'user'
+        phoneNum: data.phoneNum,
     });
     return user.save();
 

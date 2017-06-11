@@ -1,14 +1,19 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import * as db from './Utils/UsersUtil.js';
+import * as user from './Utils/UsersUtil';
+import * as worker from './Utils/WorkersUtil';
+import * as driver from './Utils/DriversUtils';
 
-db.setUpConnection();
+user.setUpConnection();
+//worker.setUpConnection();
+//driver.setUpConnection();
+
 const app = express();
 
 app.use( bodyParser.json() );
 
 app.get('/users', (req, res) => {
-    db.listUsers().then( data => {
+    user.listUsers().then(data => {
        res.send(data);
     }).catch( () => {
         res.send('Список пуст');
@@ -17,7 +22,7 @@ app.get('/users', (req, res) => {
 
 app.post('/users/auth', (req, res) => {
     console.log('REQ_BODY ', req.body);
-    db.userAuth(req.body).then( data => {
+    user.findUserByLogin(req.body.login).then(data => {
         console.log('DATA ', data);
         if (data && data.pass === req.body.pass) {
             res.send(data);
@@ -30,13 +35,21 @@ app.post('/users/auth', (req, res) => {
 });
 
 app.post('/users', (req, res) => {
-    db.findUserByLogin(req.body.login)
+    user.findUserByLogin(req.body.login)
     .then( data => {
+        console.log('Стартуем');
         if (data) {
             throw(new Error('Этот логин уже используется'))
         } else {
-            return db.createUser(req.body);
+            if (req.body.level > 0) {
+                return worker.createWorker(req.body);
+            } else {
+                return driver.createDriver(req.body);
+            }
         }
+    })
+    .then( data => {
+        return user.createUser({...req.body, id_status: data._id})
     })
     .then( data => {
         res.send({message: 'Пользователь успешно зарегистрирован' });
@@ -46,7 +59,7 @@ app.post('/users', (req, res) => {
 });
 
 app.delete('/users/:id', (req, res) => {
-    db.deleteUser(req.params.id).then(data => {
+    user.deleteUser(req.params.id).then(data => {
         res.send(data);
     }).catch( () => {
         res.send('При удалении возникла ошибка')
