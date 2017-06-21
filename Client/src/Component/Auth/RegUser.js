@@ -44,12 +44,12 @@ class RegUser extends Component {
         pass1.value === pass2.value
     ) {
       this.setState({
-        isSend: true,
+        isValidPersonalData: true,
         errorMessage: null
       });
     } else {
       this.setState({
-        isSend: false
+        isValidPersonalData: false
       });
     }
   };
@@ -60,7 +60,7 @@ class RegUser extends Component {
       errorMessage: null,
       errorLogin: null
     });
-    if (this.state.isSend) {
+    if (this.state.isValidPersonalData) {
       fetch(this.state.url, {
         method: 'POST',
         headers: {
@@ -93,7 +93,7 @@ class RegUser extends Component {
         });
     } else {
       this.setState({
-        isSend: false,
+        isValidPersonalData: false,
         errorMessage: 'Заполните все поля'
       });
     }

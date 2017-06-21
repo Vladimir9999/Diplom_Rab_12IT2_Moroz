@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     login: {type: String, required: true},
     pass: {type: String, required: true},
     phoneNum: {type: String, required: true},
+    email: {type: String, required: false},
     level: {type: Number, required: true},
     id_worker: {type: ObjectId, required: false, ref: 'Workers'},
     id_driver: {type: ObjectId, required: false, ref: 'Drivers'}

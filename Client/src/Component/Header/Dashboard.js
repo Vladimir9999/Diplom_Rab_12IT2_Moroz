@@ -19,8 +19,21 @@ class Dashboard extends Component {
   }
 
   render() {
-    let { status, login } = this.props.currentUser,
-      iconName = 'element-right ' + (status || 'user') + '_icon';
+    let { level, login } = this.props.currentUser,
+      iconName = 'element-right ';
+    switch (level) {
+      case 1:
+        iconName += 'worker_icon';
+        break;
+      case 0:
+        iconName += 'user_icon';
+        break;
+      default:
+        iconName += 'admin_icon';
+        break;
+
+    }
+
     const listClassName = this.state.isShowList ? 'MenuList' : 'MenuList-hide';
     return (
       <div className="DashboardCnt"
@@ -30,12 +43,11 @@ class Dashboard extends Component {
         <div className="header-element">
           <div className={iconName}>{login}</div>
         </div>
-        <Menu_list listClassName={listClassName} status={status} />
+        <Menu_list listClassName={listClassName} level={level} />
 
       </div>
     );
   }
-  //src="../../../img/user.jpg"
 }
 
 export default Dashboard;

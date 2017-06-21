@@ -34,7 +34,7 @@ li {
 
   &:hover {
     background-color: #fff;
-    &:hover .logo {
+    &:hover .element-left {
       color: #16a085;
     }
   }
@@ -48,6 +48,7 @@ li {
   }
 
   .element-right {
+    margin-left: 10px;
     padding-right: 45px;
   }
 
@@ -71,12 +72,18 @@ li {
   width: 200px;
   display: inline-block;
   float: right;
-  //margin-left: 1000px;
+  &:hover {
+    background-color: #fff;
+    &:hover .element-right {
+      color: #16a085;
+    }
+  }
 }
 
 .MenuList {
   background-color: #fff;
   padding: 0;
+  margin: 10px 0 0 0;
   width: 100%;
   display: block;
   li {

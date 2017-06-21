@@ -10,9 +10,12 @@ class Menu_list extends Component {
   onClickWorker = () => {
     browserHistory.push('/workers');
   };
+  onClickDriver = () => {
+    browserHistory.push('/car_drivers');
+  };
   render() {
-    const { status } = this.props;
-    let arr_list,
+    const { level } = this.props;
+    let arr_list = [],
         msg = {
               text: 'Сообщения',
               callback: this.onExit.bind(this),
@@ -23,16 +26,16 @@ class Menu_list extends Component {
               callback: this.onExit.bind(this),
               imgCLass: 'exit_icon'
             };
-    if (status) {
-      switch(status) {
-        case 'user': {
+    if (level) {
+      switch(level) {
+        case 0: {
           arr_list = [
             msg,
             exit
           ];
           break;
         }
-        case 'admin': {
+        case 2,3,4: {
           arr_list = [
             msg,
             {
@@ -40,11 +43,16 @@ class Menu_list extends Component {
               callback: this.onClickWorker.bind(this),
               imgCLass: 'mWorker_icon'
             },
+            {
+              text: 'Водители',
+              callback: this.onClickDriver.bind(this),
+              imgCLass: 'mWorker_icon'
+            },
             exit
           ];
           break;
         }
-        case 'worker': {
+        case 1: {
           arr_list = [
             msg,
             exit

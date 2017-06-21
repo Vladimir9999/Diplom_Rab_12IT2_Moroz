@@ -24,6 +24,7 @@ export function createUser(data) {
         level: data.level,
         pass: data.pass,
         phoneNum: data.phoneNum,
+        email: data.email
     });
     return user.save();
 
