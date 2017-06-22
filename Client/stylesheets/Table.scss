@@ -1,3 +1,24 @@
 .borderTable {
   background-color: white;
 }
+td {
+  a {
+    width: 100%;
+    height: 100%;
+  }
+}
+.card_icon {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  background: no-repeat;
+  cursor: pointer;
+  //background-position: 4px 5px;
+  background-image: url('../img/card.png') ;
+}
+.buttonsContainer {
+  margin: 10px 0 10px 0;
+  Button {
+    margin-right: 5px;
+  }
+}

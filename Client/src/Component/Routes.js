@@ -12,9 +12,10 @@ function Routes(props) {
     <Router history = {browserHistory}>
       <Route path = '/' component={App}>
         <IndexRoute component={Auth} />
-        <Route path = 'user_registration' component={addUser}/>
+        <Route path = 'user_registration/:user_type' component={addUser}/>
         <Route path = 'home' component={Home}/>
         <Route path = 'workers' component={Workers}/>
+        <Route path = 'workers/:id' component={Home}/>
         <Route path = 'car_drivers' component={Workers}/>
       </Route>
     </Router>

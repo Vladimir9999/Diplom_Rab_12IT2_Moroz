@@ -109,7 +109,7 @@ class addUser extends Component {
   };
   render() {
     const { step } = this.state,
-          { isWorker } = this.props; // trur or false
+          isWorker = this.props.params.user_type === 'worker';
     return (
       <div className = "authForm">
         <form>
