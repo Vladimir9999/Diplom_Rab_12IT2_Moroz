@@ -11,7 +11,20 @@ user.setUpConnection();
 const app = express();
 
 app.use( bodyParser.json() );
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
 
+    // Pass to next layer of middleware
+    next();
+});
 app.get('/users', (req, res) => {
     user.listUsers().then(data => {
        res.send(data);
@@ -67,7 +80,33 @@ app.delete('/users/:id', (req, res) => {
     );
 });
 app.get('/users/:id', (req, res) => {
-
+    // find user by ID
+});
+app.get('/getDeptAndWorkPostList', (req, res) => {
+    let list = {};
+    Promise.all([
+        worker.getDeptList(),
+        worker.getWorkerPositionList()
+    ]).then( data => {
+        res.send(data);
+    });
+});
+app.post('/dept', (req, res) => {
+    worker.createDept(req.body).then( res => {
+        res.send('ОК');
+    });
+});
+app.get('/workpost', (req, res) => {
+    worker.getWorkerPositionList().then( data => {
+        res.send(data);
+    }).catch( () => {
+        res.send('Список пуст');
+    });
+});
+app.post('/workpost', (req, res) => {
+    worker.createWorkerPosition(req.body).then( res => {
+        res.send('ОК');
+    });
 });
 
 app.listen(3000, () => {

@@ -25,7 +25,7 @@ class TableCmp extends Component {
               let date = new Date(el.birthDate),
                   bd = date.getDay() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
               return (
-                <tr>
+                <tr key={ind}>
                   <OverlayTrigger placement="left" overlay={tooltip}>
                     <td>
                       <Link to={`/Workers/${el.id_worker}`}><div className='card_icon'/></Link>

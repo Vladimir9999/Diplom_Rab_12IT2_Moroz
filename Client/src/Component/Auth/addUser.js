@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PersonalData from './personalDataForm';
-import WorkerForm from './personalDataForm';
+import WorkerForm from './workerForm';
 import UserForm from './personalDataForm';
-
+import md5 from 'md5';
 import '../../../stylesheets/Form.scss'
 
 
@@ -17,10 +17,24 @@ class addUser extends Component {
       errorMessage: null,
       errorLogin: null,
       showMessageBox: false,
-      step: 0
+      step: 0,
+      data: {}
     };
   }
-  changePersonalDataForm = (firstName, secondName, middleName , phoneNum, login, pass1, pass2) => {
+  changePersonalDataForm = (firstName, secondName, middleName , phoneNum, login, pass1, pass2, email) => {
+    this.setState({
+      data: {
+        ...this.state.data,
+        firstName: firstName.value,
+        secondName: secondName.value,
+        middleName: middleName.value,
+        phoneNum: phoneNum.value,
+        login: login.value,
+        email: email.value,
+        pass: pass1.value,
+        birthDate: new Date() //!!!
+      }
+    });
     if (pass1.value !== pass2.value ) {
       this.setState({
         errorPass: 'Пароли не совпадают'
@@ -54,8 +68,14 @@ class addUser extends Component {
     }
   };
   addUser = () => {
-    const pass = md5(this.pass1.value),
-      { firstName, secondName, middleName , phoneNum, login } = this;
+    debugger
+    const pass = md5(this.state.data.pass);
+    this.setState({
+      data: {
+        ...this.state.data,
+        pass: pass
+      }
+    });
     this.setState({
       errorMessage: null,
       errorLogin: null
@@ -67,14 +87,7 @@ class addUser extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          login: login.value,
-          pass: pass,
-          firstName: firstName.value,
-          secondName: secondName.value,
-          middleName: middleName.value,
-          phone_num: phoneNum.value
-        })
+        body: JSON.stringify(this.state.data)
       })
         .then(res => {
           this.setState({status: res.status});
@@ -99,32 +112,57 @@ class addUser extends Component {
     }
 
   };
+  addWorker = (id_dept, id_post) => {
+    debugger
+    this.setState({
+      data: {
+        ...this.state.data,
+        id_dept,
+        id_post,
+        level: 1
+      }
+    });
+    this.addUser();
+  };
   nextStep = () => {
     if (this.state.isValidPersonalData) {
-      this.state.step++;
+      this.setState({step: ++this.state.step});
     }
   };
   prevStep = () => {
-    this.state.step--;
+    this.setState({step: --this.state.step});
   };
   render() {
     const { step } = this.state,
-          isWorker = this.props.params.user_type === 'worker';
+          isWorker = this.props.params.user_type === 'worker',
+          {errorPass, errorPhoneNum, errorMessage, errorLogin} = this.state;
     return (
       <div className = "authForm">
         <form>
           {step === 0 &&
              <div>
-               <PersonalData changeField={this.changePersonalDataForm.bind(this)} />
-               <input className ="enterBtn" type="button" value="Далее" onClick={this.nextStep.bind(this)}/>
+               <PersonalData
+                 changeField={this.changePersonalDataForm.bind(this)}
+                 nextStep={this.nextStep.bind(this)}
+                 userdata={this.state.data}
+                 errorPass={errorPass}
+                 errorPhoneNum={errorPhoneNum}
+                 errorMessage={errorMessage}
+                 errorLogin={errorLogin}
+               />
              </div>
           }
-          {step !== 0 &&
+          {step === 1 &&
             <div>
-              {isWorker && <WorkerForm changeField={this.changePersonalDataForm.bind(this)} />}
-              {!isWorker && <UserForm changeField={this.changePersonalDataForm.bind(this)} />}
-              <input className ="enterBtn" type="button" value="Готово" onClick={this.addUser.bind(this)}/>
-              <input className ="regBtn" type="button" value="Назад" onClick={this.prevStep.bind(this)}/>
+              {isWorker && <WorkerForm
+                changeField={this.changePersonalDataForm.bind(this)}
+                prevStep={this.prevStep.bind(this)}
+                addWorker={this.addWorker.bind(this)}
+              />}
+              {!isWorker && <UserForm
+                changeField={this.changePersonalDataForm.bind(this)}
+                prevStep={this.prevStep.bind(this)}
+              />}
             </div>
           }
 
