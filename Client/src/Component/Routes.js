@@ -6,6 +6,9 @@ import addUser from './Auth/addUser';
 import Home from './Home';
 import Workers from './TabsPanel/Workers';
 import CarDriver from './TabsPanel/CarDriver';
+import Transport from './TabsPanel/Transport';
+import addTransport from './TabsPanel/addTransport';
+
 
 
 
@@ -19,6 +22,8 @@ function Routes(props) {
         <Route path = 'workers' component={Workers}/>
         <Route path = 'workers/:id' component={Home}/>
         <Route path = 'car_drivers' component={CarDriver}/>
+        <Route path = 'transport' component={Transport}/>
+        <Route path = 'addTransport' component={addTransport}/>
       </Route>
     </Router>
   );

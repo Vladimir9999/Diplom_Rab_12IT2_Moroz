@@ -13,6 +13,9 @@ class Menu_list extends Component {
   onClickDriver = () => {
     browserHistory.push('/car_drivers');
   };
+  onClickTransport = () => {
+    browserHistory.push('/transport');
+  };
   render() {
     const { level } = this.props;
     let arr_list = [],
@@ -47,6 +50,11 @@ class Menu_list extends Component {
               text: 'Водители',
               callback: this.onClickDriver.bind(this),
               imgCLass: 'driver_icon'
+            },
+            {
+              text: 'Транспорт',
+              callback: this.onClickTransport.bind(this),
+              imgCLass: 'transport_icon'
             },
             exit
           ];

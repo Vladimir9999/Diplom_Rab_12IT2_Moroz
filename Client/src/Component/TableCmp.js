@@ -31,8 +31,8 @@ class TableCmp extends Component {
                       <Link to={`/Workers/${el.id_worker}`}><div className='card_icon'/></Link>
                     </td>
                   </OverlayTrigger>
-                  <td>{el.secondName}</td>
                   <td>{el.firstName}</td>
+                  <td>{el.secondName}</td>
                   <td>{el.middleName}</td>
                   <td>{bd}</td>
                   <td>{el.phoneNum}</td>
