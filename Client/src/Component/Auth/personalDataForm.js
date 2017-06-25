@@ -4,23 +4,25 @@ import InputElement from 'react-input-mask';
 
 class PersonalData extends Component {
 
-  changeField() {
+
+
+  changeField = () => {
     const { firstName, secondName, middleName , phoneNum, login, pass1, pass2, email } = this;
     this.props.changeField(firstName, secondName, middleName , phoneNum, login, pass1, pass2, email);
-  }
+  };
   nextStep = () => {
     this.changeField();
     this.props.nextStep();
   };
   render() {
-    const { errorPass, errorPhoneNum, errorMessage, errorLogin } = this.props,
+    const { errorPass, errorPhoneNum, errorMessage, errorLogin, userdata = {} } = this.props,
       passClass = errorPass ? 'inValidInput' : '',
       phoneNumClass = errorPhoneNum ? 'inValidInput' : '',
       loginClass = errorLogin ? 'inValidInput' : '',
-      { firstName = {}, secondName = {}, middleName = {} , phoneNum = {}, login = {}, email = {}} = this.props.userdata;
+      { firstName = '', secondName = '', middleName = '' , phoneNum = '', login = '', email = '', pass = ''} = userdata;
     let pass1,
         pass2;
-    pass1 = pass2 = this.props.userdata.pass || {};
+    pass1 = pass2 = userdata.pass || "";
     return (
       <div>
         <fieldset>
@@ -32,14 +34,14 @@ class PersonalData extends Component {
                  className= {loginClass}
                  ref={(input) => this.login = input}
                  placeholder="Логин *"
-                 defaultValue={login.value}
+                 defaultValue={login}
                  onChange={this.changeField.bind(this)}
           />
           {errorPass && <span className="errorLabel">{errorPass}</span>}
           <input type="password"
                  name="field2"
                  className= {passClass}
-                 defaultValue={pass1.value}
+                 defaultValue={pass}
                  ref={(input) => this.pass1 = input}
                  placeholder="Пароль *"
                  onChange={this.changeField.bind(this)}
@@ -47,7 +49,7 @@ class PersonalData extends Component {
           <input type="password"
                  name="field3"
                  className= {passClass}
-                 defaultValue={pass2.value}
+                 defaultValue={pass}
                  ref={(input) => this.pass2 = input}
                  placeholder="Повторите пароль *"
                  onChange={this.changeField.bind(this)}
@@ -57,22 +59,29 @@ class PersonalData extends Component {
           <legend><span className="number">2</span> Введите личные данные</legend>
           <input type="text"
                  name="field4"
-                 defaultValue={firstName.value}
+                 defaultValue={firstName}
                  ref={(input) => this.firstName = input}
                  placeholder="Фамилия *"
                  onChange={this.changeField.bind(this)}
           />
           <input type="text"
                  name="field5"
-                 defaultValue={secondName.value}
+                 defaultValue={secondName}
                  ref={(input) => this.secondName = input}
                  placeholder="Имя *"
                  onChange={this.changeField.bind(this)}
           />
           <input type="text"
-                 defaultValue={middleName.value}
+                 defaultValue={middleName}
                  name="field6" ref={(input) => this.middleName = input}
                  placeholder="Отчество *"
+                 onChange={this.changeField.bind(this)}
+          />
+          <input type="text"
+                 defaultValue={email}
+                 name="field8"
+                 ref={(input) => this.email = input}
+                 placeholder="Email"
                  onChange={this.changeField.bind(this)}
           />
           {errorPhoneNum && <span className="errorLabel">{errorPhoneNum}</span>}
@@ -80,19 +89,13 @@ class PersonalData extends Component {
                         name="field7"
                         mask="+375\ 99 999 99 99\"
                         maskChar=""
-                        defaultValue={phoneNum.value}
+                        value={phoneNum}
                         className= {phoneNumClass}
                         ref={(input) => this.phoneNum = input}
                         placeholder="Номер телефона *"
                         onChange={this.changeField.bind(this)}
           />
-          <input type="text"
-                 defaultValue={email.value}
-                 name="field6"
-                 ref={(input) => this.email = input}
-                 placeholder="Email"
-                 onChange={this.changeField.bind(this)}
-          />
+
         </fieldset>
         <input className ="enterBtn" type="button" value="Далее" onClick={this.nextStep.bind(this)}/>
       </div>

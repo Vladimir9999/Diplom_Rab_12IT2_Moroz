@@ -4,7 +4,9 @@ import App from './App';
 import Auth from './Auth/auth';
 import addUser from './Auth/addUser';
 import Home from './Home';
-import Workers from './Workers/Workers';
+import Workers from './TabsPanel/Workers';
+import CarDriver from './TabsPanel/CarDriver';
+
 
 
 function Routes(props) {
@@ -16,7 +18,7 @@ function Routes(props) {
         <Route path = 'home' component={Home}/>
         <Route path = 'workers' component={Workers}/>
         <Route path = 'workers/:id' component={Home}/>
-        <Route path = 'car_drivers' component={Workers}/>
+        <Route path = 'car_drivers' component={CarDriver}/>
       </Route>
     </Router>
   );

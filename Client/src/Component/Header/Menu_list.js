@@ -46,7 +46,7 @@ class Menu_list extends Component {
             {
               text: 'Водители',
               callback: this.onClickDriver.bind(this),
-              imgCLass: 'mWorker_icon'
+              imgCLass: 'driver_icon'
             },
             exit
           ];

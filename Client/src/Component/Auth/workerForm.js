@@ -34,8 +34,10 @@ class WorkerForm extends Component {
     this.props.prevStep();
   };
   render() {
+    const {showMessageBox} = this.props.showMessageBox;
     return (
       <div>
+        {showMessageBox && <MessageBox text="Клиент успешно зарегистрирован" url="/"/>}
         <fieldset>
           <legend><span className="number">3</span> Введите данные о сотруднике</legend>
           <span>Выберете должность</span>

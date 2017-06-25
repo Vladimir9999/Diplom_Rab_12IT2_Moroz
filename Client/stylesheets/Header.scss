@@ -144,3 +144,7 @@ li {
   @extend .exit_icon;
   background-image: url('../img/mWorker.png') ;
 }
+.driver_icon {
+  @extend .exit_icon;
+  background-image: url('../img/driver.png') ;
+}

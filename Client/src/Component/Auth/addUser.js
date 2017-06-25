@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PersonalData from './personalDataForm';
 import WorkerForm from './workerForm';
-import UserForm from './personalDataForm';
+import UserForm from './UserForm';
 import md5 from 'md5';
 import '../../../stylesheets/Form.scss'
 
@@ -22,6 +22,17 @@ class addUser extends Component {
     };
   }
   changePersonalDataForm = (firstName, secondName, middleName , phoneNum, login, pass1, pass2, email) => {
+    const errorPass = pass1.value !== pass2.value ? 'Пароли не совпадают' : null;
+    const errorPhoneNum = phoneNum.value && phoneNum.value.length !== 17 ? 'Телефон введен неверно' : null;
+
+    // Все поля заполнены? Сейчас узнаем
+    const isFilled = phoneNum.value && phoneNum.value.length === 17 &&
+      login.value && firstName.value &&
+      secondName.value && middleName.value &&
+      pass1.value === pass2.value;
+
+    const isValidPersonalData = isFilled;
+    const errorMessage = isFilled ? null : this.state.errorMessage;
     this.setState({
       data: {
         ...this.state.data,
@@ -33,53 +44,15 @@ class addUser extends Component {
         email: email.value,
         pass: pass1.value,
         birthDate: new Date() //!!!
-      }
+      },
+      errorMessage,
+      errorPass,
+      errorPhoneNum,
+      isValidPersonalData
     });
-    if (pass1.value !== pass2.value ) {
-      this.setState({
-        errorPass: 'Пароли не совпадают'
-      });
-    } else {
-      this.setState({
-        errorPass: null,
-      });
-    }
-
-    if (phoneNum.value) {
-      this.setState({
-        errorPhoneNum: phoneNum.value.length !== 17 ? 'Телефон введен неверно' : null
-      });
-    }
-    // Все поля заполнены? Сейчас узнаем
-    if (
-      phoneNum.value && phoneNum.value.length === 17 &&
-      login.value && firstName.value &&
-      secondName.value && middleName.value &&
-      pass1.value === pass2.value
-    ) {
-      this.setState({
-        isValidPersonalData: true,
-        errorMessage: null
-      });
-    } else {
-      this.setState({
-        isValidPersonalData: false
-      });
-    }
   };
   addUser = () => {
     debugger
-    const pass = md5(this.state.data.pass);
-    this.setState({
-      data: {
-        ...this.state.data,
-        pass: pass
-      }
-    });
-    this.setState({
-      errorMessage: null,
-      errorLogin: null
-    });
     if (this.state.isValidPersonalData) {
       fetch(this.state.url, {
         method: 'POST',
@@ -100,26 +73,44 @@ class addUser extends Component {
             } else
               this.setState({showMessageBox: true});
           }
-
         ).catch( error =>{
-        this.setState({errorLogin: error.message})
+        this.setState({errorLogin: error.message, step: 0})
       });
     } else {
       this.setState({
         isValidPersonalData: false,
-        errorMessage: 'Заполните все поля'
+        errorMessage: 'Заполните все поля',
+        step: 0
       });
     }
 
   };
+  addCarDriver = (numDriverLicence, dateOfIssue, dateOfExpire, isBadVision) => {
+      this.setState({
+        data: {
+          ...this.state.data,
+          numDriverLicence,
+          dateOfIssue,
+          dateOfExpire,
+          isBadVision,
+          pass: md5(this.state.data.pass),
+          level: 0,
+          errorMessage: null,
+          errorLogin: null
+        }
+      });
+      this.addUser();
+  };
   addWorker = (id_dept, id_post) => {
-    debugger
     this.setState({
       data: {
         ...this.state.data,
         id_dept,
         id_post,
-        level: 1
+        pass: md5(this.state.data.pass),
+        level: 1,
+        errorMessage: null,
+        errorLogin: null
       }
     });
     this.addUser();
@@ -158,10 +149,13 @@ class addUser extends Component {
                 changeField={this.changePersonalDataForm.bind(this)}
                 prevStep={this.prevStep.bind(this)}
                 addWorker={this.addWorker.bind(this)}
+                showMessageBox={this.state.showMessageBox}
               />}
               {!isWorker && <UserForm
                 changeField={this.changePersonalDataForm.bind(this)}
                 prevStep={this.prevStep.bind(this)}
+                showMessageBox={this.state.showMessageBox}
+                addCarDriver={this.addCarDriver.bind(this)}
               />}
             </div>
           }
