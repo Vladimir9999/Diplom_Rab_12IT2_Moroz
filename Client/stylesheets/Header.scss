@@ -154,3 +154,15 @@ li {
   background-image: url('../img/transport.png') ;
 }
 
+.penalty_icon {
+  @extend .exit_icon;
+  background-image: url('../img/penalty.png') ;
+}
+.accident_icon {
+  @extend .exit_icon;
+  background-image: url('../img/accident.png') ;
+}
+.newMessages {
+  @extend .exit_icon;
+  background-image: url('../img/newMessages.png') ;
+}

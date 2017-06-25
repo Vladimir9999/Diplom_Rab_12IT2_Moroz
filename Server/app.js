@@ -4,6 +4,7 @@ import * as user from './Utils/UsersUtil';
 import * as worker from './Utils/WorkersUtil';
 import * as driver from './Utils/DriversUtils';
 import * as transport from './Utils/TransportUtils';
+import * as Penalty from './Utils/PenaltyUtil';
 
 user.setUpConnection();
 //worker.setUpConnection();
@@ -116,7 +117,7 @@ app.get('/Transport', (req, res) => {
         res.send('Список пуст');
     });
 });
-app.post('/TransportTypes', (req, res) => {
+app.post('/Transport', (req, res) => {
     transport.createTransport(req.body).then( data => {
         res.send('ОК');
     });
@@ -133,7 +134,18 @@ app.post('/TransportTypes', (req, res) => {
         res.send('ОК');
     });
 });
-
+app.post('/Clause', (req, res) => {
+    Penalty.createClause(req.body).then( data => {
+        res.send('ОК');
+    });
+});
+app.get('/Clause', (req, res) => {
+    Penalty.getClause().then( data => {
+        res.send(data);
+    }).catch( () => {
+        res.send('Список пуст');
+    });
+});
 app.listen(3000, () => {
     console.log('Listening on port 3000!');
 });

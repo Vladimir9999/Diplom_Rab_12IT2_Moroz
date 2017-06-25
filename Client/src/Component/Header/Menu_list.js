@@ -22,7 +22,8 @@ class Menu_list extends Component {
         msg = {
               text: 'Сообщения',
               callback: this.onExit.bind(this),
-              imgCLass: 'mail_icon'
+              imgCLass: 'mail_icon',
+              dopImg: 'newMessages'
             },
         exit = {
               text: 'Выход',
@@ -63,6 +64,16 @@ class Menu_list extends Component {
         case 1: {
           arr_list = [
             msg,
+            {
+              text: 'Выписать штраф',
+              callback: this.onClickTransport.bind(this),
+              imgCLass: 'penalty_icon'
+            },
+            {
+              text: 'Оформить ДТП',
+              callback: this.onClickTransport.bind(this),
+              imgCLass: 'accident_icon'
+            },
             exit
           ];
           break;
@@ -76,7 +87,7 @@ class Menu_list extends Component {
             <li key={ind} onClick={el.callback} >
               <div className={el.imgCLass} />
               <span>{el.text}</span>
-
+              {el.dopImg && <div className={el.dopImg} />}
             </li>
           );
         })}

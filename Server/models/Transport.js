@@ -16,6 +16,20 @@ const TransportSchema = new Schema({
 
 const Transport = mongoose.model('Transport', TransportSchema);
 
-
+JSON.stringify({
+    id_type: '595017dbe7f6eb1b00499c1f',
+    number: {
+        number: '0001',
+        region: 7,
+        serial: 'AA'
+    },
+    model: 'Lexus LX 470',
+    color: 'Серебристо-голубой',
+    date: '2012',
+    techInspection: true,
+    id_carDriver: '594eeda8eb4ad404e46913c4',
+    fuelType: 'Бензин',
+    engineCapacity: '4.7л'
+})
 
 
