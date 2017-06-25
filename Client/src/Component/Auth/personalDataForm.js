@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../../stylesheets/Form.scss'
 import InputElement from 'react-input-mask';
+import MessageBox from '../MessageBox';
 
 class PersonalData extends Component {
 
@@ -22,10 +23,12 @@ class PersonalData extends Component {
       { firstName = '', secondName = '', middleName = '' , phoneNum = '', login = '', email = '', pass = ''} = userdata;
     let pass1,
         pass2;
+    const {showMessageBox} = this.props.showMessageBox;
     pass1 = pass2 = userdata.pass || "";
     return (
       <div>
         <fieldset>
+          {showMessageBox && <MessageBox text="Пользователь успешно зарегистрирован" url="/"/>}
           <legend><span className="number">1</span> Введите данные для аутентификации</legend>
           {errorMessage && <span className="errorLabel">{errorMessage}</span>}
           {errorLogin && <span className="errorLabel">{errorLogin}</span>}

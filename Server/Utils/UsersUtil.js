@@ -19,7 +19,7 @@ export function createUser(data) {
         middleName: data.middleName,
         birthDate: data.birthDate,
         id_worker: data.level > 0 ? data.id_status : null,
-        id_drivers: data.level === 0 ? data.id_status : null,
+        id_driver: data.level === 0 ? data.id_status : null,
         login: data.login,
         level: data.level,
         pass: data.pass,

@@ -26,7 +26,7 @@ class Workers extends Component {
       }).then(res => res.json())
       .then(res => {
         this.setState({users: res.filter((el) => {
-          return el.level > 0
+          return el.level > 0 && el.id_worker;
         })});
       })
   };

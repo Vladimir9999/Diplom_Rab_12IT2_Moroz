@@ -21,6 +21,7 @@ class UserForm extends Component {
           <legend><span className="number">3</span> Введите данные о водителе</legend>
           <input type="text"
                  name="field1"
+                 maxLength="6"
                  ref={(input) => this.numDriverLicence = input}
                  placeholder="Номер водительских прав"
           />

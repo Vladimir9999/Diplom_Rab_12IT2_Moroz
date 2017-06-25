@@ -52,7 +52,6 @@ class addUser extends Component {
     });
   };
   addUser = () => {
-    debugger
     if (this.state.isValidPersonalData) {
       fetch(this.state.url, {
         method: 'POST',
@@ -71,7 +70,7 @@ class addUser extends Component {
             if (this.state.status === 400) {
               throw(res);
             } else
-              this.setState({showMessageBox: true});
+              this.setState({step: 0, showMessageBox: true});
           }
         ).catch( error =>{
         this.setState({errorLogin: error.message, step: 0})
@@ -95,11 +94,12 @@ class addUser extends Component {
           isBadVision,
           pass: md5(this.state.data.pass),
           level: 0,
-          errorMessage: null,
-          errorLogin: null
-        }
+        },
+        errorMessage: null,
+        errorLogin: null
       });
-      this.addUser();
+      setTimeout(this.addUser(), 1000);
+
   };
   addWorker = (id_dept, id_post) => {
     this.setState({
@@ -109,9 +109,9 @@ class addUser extends Component {
         id_post,
         pass: md5(this.state.data.pass),
         level: 1,
-        errorMessage: null,
-        errorLogin: null
-      }
+      },
+      errorMessage: null,
+      errorLogin: null
     });
     this.addUser();
   };
@@ -137,6 +137,7 @@ class addUser extends Component {
                  nextStep={this.nextStep.bind(this)}
                  userdata={this.state.data}
                  errorPass={errorPass}
+                 showMessageBox={this.state.showMessageBox}
                  errorPhoneNum={errorPhoneNum}
                  errorMessage={errorMessage}
                  errorLogin={errorLogin}

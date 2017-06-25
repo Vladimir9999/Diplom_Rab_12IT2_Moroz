@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import * as user from './Utils/UsersUtil';
 import * as worker from './Utils/WorkersUtil';
 import * as driver from './Utils/DriversUtils';
+import * as transport from './Utils/TransportUtils';
 
 user.setUpConnection();
 //worker.setUpConnection();
@@ -92,7 +93,7 @@ app.get('/getDeptAndWorkPostList', (req, res) => {
     });
 });
 app.post('/dept', (req, res) => {
-    worker.createDept(req.body).then( res => {
+    worker.createDept(req.body).then( data => {
         res.send('ОК');
     });
 });
@@ -104,7 +105,31 @@ app.get('/workpost', (req, res) => {
     });
 });
 app.post('/workpost', (req, res) => {
-    worker.createWorkerPosition(req.body).then( res => {
+    worker.createWorkerPosition(req.body).then( data => {
+        res.send('ОК');
+    });
+});
+app.get('/Transport', (req, res) => {
+    transport.getTransportList().then( data => {
+        res.send(data);
+    }).catch( () => {
+        res.send('Список пуст');
+    });
+});
+app.post('/TransportTypes', (req, res) => {
+    transport.createTransport(req.body).then( data => {
+        res.send('ОК');
+    });
+});
+app.get('/TransportTypes', (req, res) => {
+    transport.getTransportTypesList().then( data => {
+        res.send(data);
+    }).catch( () => {
+        res.send('Список пуст');
+    });
+});
+app.post('/TransportTypes', (req, res) => {
+    transport.createTransportTypes(req.body).then( data => {
         res.send('ОК');
     });
 });
