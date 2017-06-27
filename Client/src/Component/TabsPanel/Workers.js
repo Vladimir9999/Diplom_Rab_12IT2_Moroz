@@ -19,7 +19,7 @@ class Workers extends Component {
   };
 
   componentWillMount() {
-    fetch('http://localhost:3000/users')
+    fetch('http://192.168.1.38:3000/users')
       .then(res => {
         this.setState({status: res.status});
         return res;

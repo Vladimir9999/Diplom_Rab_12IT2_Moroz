@@ -10,7 +10,7 @@ class Auth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: 'http://localhost:3000/users/auth',
+      url: 'http://192.168.1.38:3000/users/auth',
       errorMessage: null,
       errorLogin: null,
       errorPass: null
@@ -91,9 +91,6 @@ class Auth extends Component {
             />
           </fieldset>
           <input type="button" className='enterBtn' value="Вход" onClick={this.onEnter.bind(this)} />
-          <Link className="Link" to="user_registration">
-            <input type="button" className='regBtn' value="Регистрация" />
-          </Link>
         </form>
       </div>
     );

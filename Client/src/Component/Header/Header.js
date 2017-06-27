@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row,Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import usersActions from '../../actions';
@@ -22,11 +23,14 @@ class Header extends Component {
     }
     return (
       <div>
-        {defaultMenu && <div className='defHeader'></div>}
-        {!defaultMenu &&
+        {defaultMenu ? <div className='defHeader'></div> :
           <div className='Header'>
-            <Logo />
-            <Dashboard currentUser={currentUser} />
+            <Col lg={6} md={6} sm={6} xs={6}>
+              <Logo />
+            </Col>
+            <Col lg={6} md={6} sm={6} xs={6}>
+              <Dashboard currentUser={currentUser} />
+            </Col>
           </div>
         }
       </div>

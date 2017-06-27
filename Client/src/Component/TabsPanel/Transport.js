@@ -19,7 +19,7 @@ class Transport extends Component {
   };
 
   componentWillMount() {
-    fetch('http://localhost:3000/Transport')
+    fetch('http://192.168.1.38:3000/Transport')
       .then(res => {
         this.setState({status: res.status});
         return res;

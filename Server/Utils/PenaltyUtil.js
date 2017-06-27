@@ -50,8 +50,13 @@ export function createMessages(data) {
     });
     return msg.save();
 }
-export function getMessages() {
-    return Messages.find();
+export function getMessagesById(id) {
+    return Messages.find({id_addressee: id});
 }
 
-
+JSON.stringify({
+    id_mailer: '93dc70573096212f46f2198',
+    id_addressee: '594eeda8eb4ad404e46913c4',
+    text: 'Здраствуйте! Александр Николаевич спасибо, что зарегистрировались в нашей системе.',
+    date: '26.06.2017'
+});

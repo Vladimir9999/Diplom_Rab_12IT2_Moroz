@@ -10,7 +10,7 @@ class addUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: 'http://localhost:3000/users',
+      url: 'http://192.168.1.38:3000/users',
       isValidPersonalData: false,
       errorPass: null,
       errorPhoneNum: null,

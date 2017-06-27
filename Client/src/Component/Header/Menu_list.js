@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {  browserHistory } from 'react-router';
-import '../../../stylesheets/Header.scss'
+import '../../../stylesheets/Header.scss';
+import { Link } from 'react-router';
+
 
 class Menu_list extends Component {
   onExit = () => {
@@ -9,6 +11,9 @@ class Menu_list extends Component {
   };
   onClickWorker = () => {
     browserHistory.push('/workers');
+  };
+  onMessage = () => {
+    browserHistory.push('/messages')
   };
   onClickDriver = () => {
     browserHistory.push('/car_drivers');
@@ -21,9 +26,10 @@ class Menu_list extends Component {
     let arr_list = [],
         msg = {
               text: 'Сообщения',
-              callback: this.onExit.bind(this),
+              callback: this.onMessage.bind(this),
               imgCLass: 'mail_icon',
-              dopImg: 'newMessages'
+              dopImg: 'newMessages',
+              link: '/workers'
             },
         exit = {
               text: 'Выход',
@@ -85,6 +91,7 @@ class Menu_list extends Component {
         {arr_list.map((el,ind) => {
           return (
             <li key={ind} onClick={el.callback} >
+
               <div className={el.imgCLass} />
               <span>{el.text}</span>
               {el.dopImg && <div className={el.dopImg} />}

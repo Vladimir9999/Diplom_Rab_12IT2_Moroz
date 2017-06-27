@@ -73,7 +73,7 @@ module.exports = {
   },
 
   devServer: {
-    host: 'localhost',
+    host: '192.168.1.38',
     port: 8080,
     contentBase: path.resolve(__dirname, 'public'),
     hot: true,

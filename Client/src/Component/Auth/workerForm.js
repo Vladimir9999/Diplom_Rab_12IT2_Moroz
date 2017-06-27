@@ -13,7 +13,7 @@ class WorkerForm extends Component {
     }
   };
   componentWillMount() {
-    fetch('http://localhost:3000/getDeptAndWorkPostList')
+    fetch('http://192.168.1.38:3000/getDeptAndWorkPostList')
       .then(res => {
         this.setState({status: res.status});
         return res;

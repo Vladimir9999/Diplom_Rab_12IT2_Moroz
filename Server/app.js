@@ -15,7 +15,7 @@ const app = express();
 app.use( bodyParser.json() );
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.1.38:8080');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // Request headers you wish to allow
@@ -146,6 +146,19 @@ app.get('/Clause', (req, res) => {
         res.send('Список пуст');
     });
 });
+app.post('/message', (req, res) => {
+    Penalty.createMessages(req.body).then( data => {
+        res.send('ОК');
+    });
+});
+app.get('/message/:id', (req, res) => {
+    Penalty.getMessagesById(req.params.id).then( data => {
+        res.send(data);
+    }).catch( () => {
+        res.send('Список пуст');
+    });
+});
+
 app.listen(3000, () => {
     console.log('Listening on port 3000!');
 });
